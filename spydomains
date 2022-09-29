@@ -61,7 +61,7 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                     exit
                     ;;
                 
-                -u) domain="$OPTARG"
+                -u) domain="$2"
                     # if [ host "$domain" ]; then
                     #     echo "It resolves!"
                     # fi

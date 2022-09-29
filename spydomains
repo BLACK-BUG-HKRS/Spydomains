@@ -67,7 +67,7 @@ if [[ -z "$1" || "$#" == 0 ]]; then
 
     else
 
-        while getopts "hHu:U:o:O:" option; do
+        while getopts "hHu:U:o:O:f:F:" option; do
             case $option in
                 h | H)
                     Help

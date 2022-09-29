@@ -2,24 +2,18 @@
 # copyright 2022 - Black Bug Group
 # Author: Edgar Nyandoro - Github: Major2000
 
+
+
 PROJDIR="$(dirname "$0")"
 cd "${PROJDIR}" || return
 
-# wordlist=$1
-
-
-
 # echo "Total arguments : $#"
-# echo "1st Argument = $0"
+# echo "1st Argument = $1"
 # echo "2nd argument = $2"
-
-
 
 # Help function
 Help()
-
 {
-
    # Display Help
    echo
 
@@ -44,30 +38,53 @@ Help()
    echo  "Example: spydomain -u example.com -f wordlist.txt -o domains.txt "
   
    echo
-
 }
 
 
+############################################################
+############################################################
+# Main program                                             #
+############################################################
+############################################################
+
+# Set variables
+domain="noexample.com"
+
+
 if [[ -z "$1" || "$#" == 0 ]]; then
+    echo
+    echo "No option(s)!"
     echo "Try -h or --help option for HELP!"
+    echo
     exit
 
 
     else
-        for args in "$@"; do
-            case $args in
-                -h | --help)
+
+        while getopts ":hu-help:" option; do
+            case $option in
+                h | -help)
                     Help
                     exit
                     ;;
-                
-                -u) domain="$2"
-                    # if [ host "$domain" ]; then
-                    #     echo "It resolves!"
-                    # fi
-                    echo "$domain"
-                    shift
+
+                u)
+                    for i in $@; do
+                        echo $i
+                        if [$i == -u]; then
+                            domain=$opt
+                        fi
+                    done
+                    echo $domain
+                    ;;
+                *)
+                    echo
+                    echo "Invalid option(s)!"
+                    echo "Try -h or --help option for HELP!"
+                    echo
+                    exit
                     ;;
             esac
         done
-fi 
+        shift $(($OPTIND -1))
+fi

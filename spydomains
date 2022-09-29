@@ -37,7 +37,9 @@ Help()
 
    echo
    
-   echo  "Example: spydomain -u example.com -f wordlist.txt -o domains.txt "
+   echo  "Example: spydomains -u example.com -f wordlist.txt -o domains.txt  - With word list"
+
+   echo  "Example: spydomains -u example.com - without word list"
   
    echo
 }
@@ -50,7 +52,7 @@ Help()
 ############################################################
 
 # Set variables
-domain="noexample.com"
+domain=""
 pos=0
 
 
@@ -65,14 +67,9 @@ if [[ -z "$1" || "$#" == 0 ]]; then
 
     else
 
-        while getopts "hHu:U:" option; do
+        while getopts "hHu:U:o:O:" option; do
             case $option in
                 h | H)
-                    Help
-                    exit
-                    ;;
-                
-                --help)
                     Help
                     exit
                     ;;
@@ -98,7 +95,7 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                 *)
                     echo
                     echo "Invalid option(s)!"
-                    echo "Try -h or --help option for HELP!"
+                    echo "Try -h option for HELP!"
                     exit
                     ;;
             esac

@@ -2,15 +2,18 @@
 # copyright 2022 - Black Bug Group
 # Author: Edgar Nyandoro - Github: Major2000
 
+PROJDIR="$(cd "$(dirname "$0")"/.. && pwd)"
+cd "${PROJDIR}" || return
 
-option=$1
-domain=$2
 
-if [[ -z "$option" ]]; then
+    if [[ -z "$option" ]]; then
     echo "Try -h or --help options for HELP!";
     exit 1;
-fi
+    fi
 
+        # -help)  echo "Usage             Spydomains -f <subdomain-wordlist-file>";
+        #         echo "-h or --help              Displays this message!";
+        #         exit;;
 
 case "$option" in
 -h) if [[ "$option" == *-h* ]]; then 
@@ -26,10 +29,15 @@ case "$option" in
         fi ;;
 
 -u) while read -r sub; 
-    do
-        if host "$sub.$domain" &> /dev/null; then
-            echo "$sub.$domain"
-        fi
-    done < "${domain}"
-    exit 1
-esac
+                do
+                    if host "$sub.$domain" &> /dev/null; then
+                        echo "$sub.$domain"
+                    fi
+            done < "$(wget -O- -q http://localhost/1/downloads.txt)"
+            exit;;
+        
+        *)  echo "Error: Invalid option" # for invalid options
+            exit;;
+    esac
+done
+shift $((OPTIND-1))

@@ -31,7 +31,7 @@ Help()
 
    echo "           -h     Print this Help."
 
-   echo "           -o     Write output to file"
+   echo "           -o     Print to file"
 
    echo
    
@@ -63,18 +63,17 @@ if [[ -z "$1" || "$#" == 0 ]]; then
 
     else
 
-        while getopts ":h:uU:H:-help:" option; do
+        while getopts "hHu:U:" option; do
             case $option in
-                h)
+                h | H)
                     Help
                     exit
                     ;;
                 
-                H)
+                --help)
                     Help
                     exit
                     ;;
-
 
                 u | U)
                     for i in $@; do

@@ -62,7 +62,12 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                     ;;
                 
                 -u) domain="$OPTARG"
-                    host $domain
+                    # if [ host "$domain" ]; then
+                    #     echo "It resolves!"
+                    # fi
+                    echo "$domain"
+                    shift
+                    ;;
             esac
         done
 fi 

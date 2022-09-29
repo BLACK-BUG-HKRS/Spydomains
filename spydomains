@@ -121,7 +121,6 @@ fi
 
 
 
-
 ##### Reccon starts here!
 # echo $domain
 while read sub; do 

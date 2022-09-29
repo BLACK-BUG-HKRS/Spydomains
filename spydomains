@@ -52,9 +52,8 @@ Help()
 ############################################################
 
 # Set variables
-domain=""
 pos=0
-file=
+file=file.txt
 
 
 
@@ -113,4 +112,4 @@ while read sub; do
     if host "$sub.$domain" &> /dev/null; then
         echo "$sub.$domain"
     fi
-done
+done < $file

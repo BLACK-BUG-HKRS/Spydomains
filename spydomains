@@ -60,8 +60,7 @@ Help()
 ############################################################
 
 # Set variables
-upos=0
-fpos=0
+upos=0; fpos=0; opos=0
 file=""
 
 
@@ -96,6 +95,9 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                                 4) domain=$4;;
                                 5) domain=$5;;
                                 6) domain=$6;;
+                                7) domain=$7;;
+                                8) domain=$8;;
+                                9) domain=$9;;
                             esac
                         fi
                     done
@@ -114,10 +116,19 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                                 4) file=$4;;
                                 5) file=$5;;
                                 6) file=$6;;
+                                7) file=$7;;
+                                8) file=$8;;
+                                9) file=$9;;
                             esac
                         fi
                     done
                     ;;
+
+                o | O)
+
+                    ;;
+
+
 
                 *)
                     echo

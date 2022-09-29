@@ -53,7 +53,7 @@ Help()
 
 # Set variables
 pos=0
-file=file.txt
+file=33m-subdomain-wordlist.txt
 
 
 

@@ -6,29 +6,50 @@ PROJDIR="$(cd "$(dirname "$0")"/.. && pwd)"
 cd "${PROJDIR}" || return
 
 
+# Help function
+Help()
+
+{
+
+   # Display Help
+
+   echo "Lost, This HELP Message is enough for the guide!"
+
+   echo
+
+   echo "Syntax: spydomains   -[options:|u|h|o]   [wordlist-file]"
+
+   echo "options:"
+
+   echo "u     Add the domain you want to brute force for subdomains."
+
+   echo "h     Print this Help."
+
+   echo "o     Write output to file"
+   
+   echo  "Example: spydomain -u example.com -f wordlist.txt -o domains.txt "
+  
+   echo
+
+}
+
+# get options here
+while getopts h:u: option;
+do
     if [[ -z "$option" ]]; then
-    echo "Try -h or --help options for HELP!";
-    exit 1;
+        echo "Try -h option for HELP!"
+        exit
     fi
+    case "${option}" in
+        h)  Help;
+            exit;;
 
         # -help)  echo "Usage             Spydomains -f <subdomain-wordlist-file>";
         #         echo "-h or --help              Displays this message!";
         #         exit;;
 
-case "$option" in
--h) if [[ "$option" == *-h* ]]; then 
-        echo "Usage: Spydomains -f <subdomain-wordlist-file>";
-        echo "-h: Displays this message!";
-        exit 1;
-    fi ;;
-
---help) if [[ "$option" == *-h* ]]; then 
-            echo "Usage: Spydomains -f <subdomain-wordlist-file>";
-            echo "-h: Displays this message!";
-            exit 1;
-        fi ;;
-
--u) while read -r sub; 
+        u)  wordlist
+            while read -r sub; 
                 do
                     if host "$sub.$domain" &> /dev/null; then
                         echo "$sub.$domain"

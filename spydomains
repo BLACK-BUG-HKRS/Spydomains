@@ -7,9 +7,17 @@
 PROJDIR="$(dirname "$0")"
 cd "${PROJDIR}" || return
 
-# echo "Total arguments : $#"
-# echo "1st Argument = $1"
-# echo "2nd argument = $2"
+echo "Total arguments : $#"
+echo "1st Argument = $1"
+echo "2nd argument = $2"
+echo "3 argument = $3"
+echo "4 argument = $4"
+echo "5 argument = $5"
+echo "6 argument = $6"
+echo "7 argument = $7"
+echo "8 argument = $8"
+echo "9 argument = $9"
+
 
 # Help function
 Help()
@@ -52,8 +60,9 @@ Help()
 ############################################################
 
 # Set variables
-pos=0
-file=33m-subdomain-wordlist.txt
+upos=0
+fpos=0
+file=""
 
 
 
@@ -76,12 +85,12 @@ if [[ -z "$1" || "$#" == 0 ]]; then
 
                 u | U)
                     for i in $@; do
-                        let "pos++"
+                        let "upos++"
                         # echo $i
-                        # echo $#
+                        # echo $upos
                         if [[ $i == "-u" || $i == "-U" ]]; then
-                            let "pos++"
-                            case $pos in
+                            let "upos++"
+                            case $upos in
                                 2) domain=$2;;
                                 3) domain=$3;;
                                 4) domain=$4;;
@@ -94,10 +103,12 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                 
                 f | F)
                     for i in $@; do
-                        let "pos++"
+                        # echo $i
+                        # echo $fpos
+                        let "fpos++"
                         if [[ $i == "-f" || $i == "-F" ]]; then
-                            let "pos++"
-                            case $pos in
+                            let "fpos++"
+                            case $fpos in
                                 2) file=$2;;
                                 3) file=$3;;
                                 4) file=$4;;
@@ -128,3 +139,4 @@ while read sub; do
         echo "$sub.$domain"
     fi
 done < $file
+# echo $file

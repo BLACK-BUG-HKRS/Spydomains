@@ -48,32 +48,26 @@ Help()
 }
 
 
-if [ -z "$1" ]; then
+if [[ -z "$1" || "$#" == 0 ]]; then
     echo "Try -h or --help option for HELP!"
     exit
-fi
 
-# get options here
-while getopts ":h:u:help:" opts;
-do
-    
-    case $opts in
 
-        -h | --help)  Help
-            # exit
-        ;;
-
-        -u) domain="$OPTARG"
-            # exit 
-        ;;
-        
-        \?)  echo "Error: Invalid option" # for invalid options
-            Help
-            # exit
-        ;;
-    esac
-    
-    shift
-done
-echo "$domain"
-
+    else
+        for args in "$@"; do
+            case $args in
+                -h | --help)
+                    Help
+                    exit
+                    ;;
+                
+                -u) domain="$2"
+                    # if [ host "$domain" ]; then
+                    #     echo "It resolves!"
+                    # fi
+                    echo "$domain"
+                    shift
+                    ;;
+            esac
+        done
+fi 

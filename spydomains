@@ -54,23 +54,26 @@ if [ -z "$1" ]; then
 fi
 
 # get options here
-while [ -n "$1" ];
+while getopts ":h:u:help:" opts;
 do
     
-    case "$1" in
-    
-        -h | --help)  Help
-            exit;;
+    case $opts in
 
-        -u) echo "url here"
-            exit ;;
+        -h | --help)  Help
+            # exit
+        ;;
+
+        -u) domain="$OPTARG"
+            # exit 
+        ;;
         
-        *)  echo "Error: Invalid option" # for invalid options
+        \?)  echo "Error: Invalid option" # for invalid options
             Help
-            exit;;
+            # exit
+        ;;
     esac
     
-    shift $((OPTIND-1))
-
+    shift
 done
+echo "$domain"
 

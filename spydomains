@@ -29,7 +29,7 @@ Help()
 
    echo "           -u, -U     Add the domain you want to brute force for subdomains."
 
-   echo "           -f, -F     Add a custome brute-force world list of domains"
+   echo "           -f, -F     Add a custom brute-force world list of domains"
 
    echo "           -o, -O     Print to  external file"
 

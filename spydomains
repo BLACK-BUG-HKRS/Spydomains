@@ -64,9 +64,9 @@ if [[ -z "$1" || "$#" == 0 ]]; then
 
     else
 
-        while getopts ":huUH-help:" option; do
+        while getopts ":hu-helpUH:" option; do
             case $option in
-                h | -help | H)
+                h | H | -help)
                     Help
                     exit
                     ;;
@@ -76,7 +76,7 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                         let "pos++"
                         # echo $i
                         # echo $#
-                        if [[ $i == "-u" ]]; then
+                        if [[ $i == "-u" || $i == "-U" ]]; then
                             let "pos++"
                             case $pos in
                                 2) domain=$2;;
@@ -89,7 +89,7 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                     done
                     ;;
 
-                *)
+                \? | :)
                     echo
                     echo "Invalid option(s)!"
                     echo "Try -h or --help option for HELP!"

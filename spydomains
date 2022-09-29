@@ -54,6 +54,7 @@ Help()
 # Set variables
 domain=""
 pos=0
+file=
 
 
 
@@ -108,9 +109,8 @@ fi
 
 ##### Reccon starts here!
 # echo $domain
-
-if host $domain &> /dev/null; then
-    echo " $domain resolves!"
-    else
-        echo "$domain do not resolve!"
-fi
+while read sub; do 
+    if host "$sub.$domain" &> /dev/null; then
+        echo "$sub.$domain"
+    fi
+done

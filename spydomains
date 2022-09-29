@@ -98,8 +98,16 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                     ;;
             esac
         done
-        shift $(($OPTIND -1))
+        # shift $(($OPTIND -1))
 fi
 
-if [[ host $domain]]; then
-    echo "It resolves!"
+
+
+
+##### Reccon starts here!
+# echo $domain
+if host $domain &> /dev/null; then
+    echo " $domain resolves!"
+    else
+        echo "$domain do not resolve!"
+fi

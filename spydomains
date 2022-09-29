@@ -58,7 +58,6 @@ if [[ -z "$1" || "$#" == 0 ]]; then
     echo
     echo "No option(s)!"
     echo "Try -h or --help option for HELP!"
-    echo
     exit
 
 
@@ -93,7 +92,6 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                     echo
                     echo "Invalid option(s)!"
                     echo "Try -h or --help option for HELP!"
-                    echo
                     exit
                     ;;
             esac
@@ -104,10 +102,10 @@ fi
 
 
 
-##### Reccon starts here!
-# echo $domain
-if host $domain &> /dev/null; then
-    echo " $domain resolves!"
-    else
-        echo "$domain do not resolve!"
-fi
+# ##### Reccon starts here!
+# # echo $domain
+# if host $domain &> /dev/null; then
+#     echo " $domain resolves!"
+#     else
+#         echo "$domain do not resolve!"
+# fi

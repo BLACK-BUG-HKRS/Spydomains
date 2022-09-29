@@ -49,8 +49,11 @@ Help()
 
 # Set variables
 domain="noexample.com"
+pos=0
 
 
+
+###### Check and capture the arguments
 if [[ -z "$1" || "$#" == 0 ]]; then
     echo
     echo "No option(s)!"
@@ -61,22 +64,31 @@ if [[ -z "$1" || "$#" == 0 ]]; then
 
     else
 
-        while getopts ":hu-help:" option; do
+        while getopts ":huUH-help:" option; do
             case $option in
-                h | -help)
+                h | -help | H)
                     Help
                     exit
                     ;;
 
-                u)
+                u | U)
                     for i in $@; do
-                        echo $i
-                        if [$i == -u]; then
-                            domain=$opt
+                        let "pos++"
+                        # echo $i
+                        # echo $#
+                        if [[ $i == "-u" ]]; then
+                            let "pos++"
+                            case $pos in
+                                2) domain=$2;;
+                                3) domain=$3;;
+                                4) domain=$4;;
+                                5) domain=$5;;
+                                6) domain=$6;;
+                            esac
                         fi
                     done
-                    echo $domain
                     ;;
+
                 *)
                     echo
                     echo "Invalid option(s)!"
@@ -88,3 +100,6 @@ if [[ -z "$1" || "$#" == 0 ]]; then
         done
         shift $(($OPTIND -1))
 fi
+
+if [[ host $domain]]; then
+    echo "It resolves!"

@@ -63,7 +63,7 @@ if [[ -z "$1" || "$#" == 0 ]]; then
 
     else
 
-        while getopts ":hu-helpUH:" option; do
+        while getopts ":h:u:help:U:H:" option; do
             case $option in
                 h | H | -help)
                     Help
@@ -88,7 +88,7 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                     done
                     ;;
 
-                \? | :)
+                *)
                     echo
                     echo "Invalid option(s)!"
                     echo "Try -h or --help option for HELP!"

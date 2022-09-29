@@ -129,7 +129,7 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                         # echo $i
                         # echo $opos
                         let "opos++"
-                        if [[ $i == "-f" || $i == "-F" ]]; then
+                        if [[ $i == "-o" || $i == "-O" ]]; then
                             let "opos++"
                             case $opos in
                                 2) out=$2;;
@@ -159,12 +159,20 @@ fi
 
 
 ##### Reccon starts here!
-# echo $domain
-if $out; do
+# read if output argument is availabe
+if [[ $out ]]; then
     while read sub; do 
         if host "$sub.$domain" &> /dev/null; then
-            echo "$sub.$domain"
+            echo "$sub.$domain" >> $out
         fi
     done < $file
-    # echo $file
+    echo
+    echo "Output exported to $out"
+
+    else
+        while read sub; do 
+            if host "$sub.$domain" &> /dev/null; then
+                echo "$sub.$domain"
+            fi
+    done < $file
 fi

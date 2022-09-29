@@ -2,24 +2,18 @@
 # copyright 2022 - Black Bug Group
 # Author: Edgar Nyandoro - Github: Major2000
 
+
+
 PROJDIR="$(dirname "$0")"
 cd "${PROJDIR}" || return
 
-# wordlist=$1
-
-
-
 # echo "Total arguments : $#"
-# echo "1st Argument = $0"
+# echo "1st Argument = $1"
 # echo "2nd argument = $2"
-
-
 
 # Help function
 Help()
-
 {
-
    # Display Help
    echo
 
@@ -44,30 +38,75 @@ Help()
    echo  "Example: spydomain -u example.com -f wordlist.txt -o domains.txt "
   
    echo
-
 }
 
 
+############################################################
+############################################################
+# Main program                                             #
+############################################################
+############################################################
+
+# Set variables
+domain="noexample.com"
+pos=0
+
+
+
+###### Check and capture the arguments
 if [[ -z "$1" || "$#" == 0 ]]; then
+    echo
+    echo "No option(s)!"
     echo "Try -h or --help option for HELP!"
     exit
 
 
     else
-        for args in "$@"; do
-            case $args in
-                -h | --help)
+
+        while getopts ":hu-helpUH:" option; do
+            case $option in
+                h | H | -help)
                     Help
                     exit
                     ;;
-                
-                -u) domain="$2"
-                    # if [ host "$domain" ]; then
-                    #     echo "It resolves!"
-                    # fi
-                    echo "$domain"
-                    shift
+
+                u | U)
+                    for i in $@; do
+                        let "pos++"
+                        # echo $i
+                        # echo $#
+                        if [[ $i == "-u" || $i == "-U" ]]; then
+                            let "pos++"
+                            case $pos in
+                                2) domain=$2;;
+                                3) domain=$3;;
+                                4) domain=$4;;
+                                5) domain=$5;;
+                                6) domain=$6;;
+                            esac
+                        fi
+                    done
+                    ;;
+
+                \? | :)
+                    echo
+                    echo "Invalid option(s)!"
+                    echo "Try -h or --help option for HELP!"
+                    exit
                     ;;
             esac
         done
-fi 
+        # shift $(($OPTIND -1))
+fi
+
+
+
+
+##### Reccon starts here!
+# echo $domain
+
+if host $domain &> /dev/null; then
+    echo " $domain resolves!"
+    else
+        echo "$domain do not resolve!"
+fi

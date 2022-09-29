@@ -102,10 +102,11 @@ fi
 
 
 
-# ##### Reccon starts here!
-# # echo $domain
-# if host $domain &> /dev/null; then
-#     echo " $domain resolves!"
-#     else
-#         echo "$domain do not resolve!"
-# fi
+##### Reccon starts here!
+# echo $domain
+
+if host $domain &> /dev/null; then
+    echo " $domain resolves!"
+    else
+        echo "$domain do not resolve!"
+fi

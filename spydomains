@@ -21,17 +21,19 @@ Help()
 
    echo
 
-   echo "Syntax: spydomains  -[options:|u|h|o]  [args]"
+   echo "Syntax: spydomains  -[options:|u, U|f, F|o, O|h, H]  [args]"
 
    echo
 
    echo "options:"
 
-   echo "           -u     Add the domain you want to brute force for subdomains."
+   echo "           -u, -U     Add the domain you want to brute force for subdomains."
 
-   echo "           -h     Print this Help."
+   echo "           -f, -F     Add a custome brute-force world list of domains"
 
-   echo "           -o     Print to file"
+   echo "           -o, -O     Print to  external file"
+
+   echo "           -h, -H     Print this Help."
 
    echo
    
@@ -57,7 +59,7 @@ pos=0
 if [[ -z "$1" || "$#" == 0 ]]; then
     echo
     echo "No option(s)!"
-    echo "Try -h or --help option for HELP!"
+    echo "Try -h option for HELP!"
     exit
 
 

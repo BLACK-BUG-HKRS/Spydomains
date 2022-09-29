@@ -7,16 +7,16 @@
 PROJDIR="$(dirname "$0")"
 cd "${PROJDIR}" || return
 
-echo "Total arguments : $#"
-echo "1st Argument = $1"
-echo "2nd argument = $2"
-echo "3 argument = $3"
-echo "4 argument = $4"
-echo "5 argument = $5"
-echo "6 argument = $6"
-echo "7 argument = $7"
-echo "8 argument = $8"
-echo "9 argument = $9"
+# echo "Total arguments : $#"
+# echo "1st Argument = $1"
+# echo "2nd argument = $2"
+# echo "3 argument = $3"
+# echo "4 argument = $4"
+# echo "5 argument = $5"
+# echo "6 argument = $6"
+# echo "7 argument = $7"
+# echo "8 argument = $8"
+# echo "9 argument = $9"
 
 
 # Help function

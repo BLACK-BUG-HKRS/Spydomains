@@ -60,7 +60,9 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                     Help
                     exit
                     ;;
+                
+                -u) domain="$OPTARG"
+                    host $domain
             esac
-        done 
-fi
-
+        done
+fi 

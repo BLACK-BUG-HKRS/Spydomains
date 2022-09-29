@@ -2,8 +2,17 @@
 # copyright 2022 - Black Bug Group
 # Author: Edgar Nyandoro - Github: Major2000
 
-PROJDIR="$(cd "$(dirname "$0")"/.. && pwd)"
+PROJDIR="$(dirname "$0")"
 cd "${PROJDIR}" || return
+
+# wordlist=$1
+
+
+
+# echo "Total arguments : $#"
+# echo "1st Argument = $0"
+# echo "2nd argument = $2"
+
 
 
 # Help function
@@ -12,20 +21,25 @@ Help()
 {
 
    # Display Help
+   echo
 
-   echo "Lost, This HELP Message is enough for the guide!"
+   echo "Looks like you're lost, This HELP Message is enough for the guide!"
 
    echo
 
-   echo "Syntax: spydomains   -[options:|u|h|o]   [wordlist-file]"
+   echo "Syntax: spydomains  -[options:|u|h|o]  [args]"
+
+   echo
 
    echo "options:"
 
-   echo "u     Add the domain you want to brute force for subdomains."
+   echo "           -u     Add the domain you want to brute force for subdomains."
 
-   echo "h     Print this Help."
+   echo "           -h     Print this Help."
 
-   echo "o     Write output to file"
+   echo "           -o     Write output to file"
+
+   echo
    
    echo  "Example: spydomain -u example.com -f wordlist.txt -o domains.txt "
   
@@ -33,32 +47,30 @@ Help()
 
 }
 
+
+if [ -z "$1" ]; then
+    echo "Try -h or --help option for HELP!"
+    exit
+fi
+
 # get options here
-while getopts h:u: option;
+while [ -n "$1" ];
 do
-    if [[ -z "$option" ]]; then
-        echo "Try -h option for HELP!"
-        exit
-    fi
-    case "${option}" in
-        h)  Help;
+    
+    case "$1" in
+    
+        -h | --help)  Help
             exit;;
 
-        # -help)  echo "Usage             Spydomains -f <subdomain-wordlist-file>";
-        #         echo "-h or --help              Displays this message!";
-        #         exit;;
-
-        u)  wordlist
-            while read -r sub; 
-                do
-                    if host "$sub.$domain" &> /dev/null; then
-                        echo "$sub.$domain"
-                    fi
-            done < "$(wget -O- -q http://localhost/1/downloads.txt)"
-            exit;;
+        -u) echo "url here"
+            exit ;;
         
         *)  echo "Error: Invalid option" # for invalid options
+            Help
             exit;;
     esac
+    
+    shift $((OPTIND-1))
+
 done
-shift $((OPTIND-1))
+

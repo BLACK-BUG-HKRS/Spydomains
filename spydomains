@@ -63,12 +63,18 @@ if [[ -z "$1" || "$#" == 0 ]]; then
 
     else
 
-        while getopts ":huUH:-help:" option; do
+        while getopts ":h:uU:H:-help:" option; do
             case $option in
-                h | H | -help)
+                h)
                     Help
                     exit
                     ;;
+                
+                H)
+                    Help
+                    exit
+                    ;;
+
 
                 u | U)
                     for i in $@; do

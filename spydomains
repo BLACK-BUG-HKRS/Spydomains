@@ -161,23 +161,25 @@ fi
 ##### Reccon starts here!
 # read if output argument is availabe
 if [[ $out ]]; then
-    cat > $out
+    touch $out
     while read sub; do 
         if host "$sub.$domain" &> /dev/null; then
-            while read line; do
-                if [ grep -q $line $out ]; then
-                    continue
-                else
-                    echo "$sub.$domain" >> $out
-                fi
-            done < $out
+            if [ -s $out ]; then
+                while read line; do
+                        if ! grep -q $line $out; then
+                            echo "$sub.$domain" >> $out                       
+                        fi
+                done < $out
+            else
+                echo "$sub.$domain" >> $out  
+            fi
         fi
     done < $file
     echo
     echo "Output exported to $out!"
 
     else
-        rm domains.txt
+        rm domains.txt &> /dev/null
         while read sub; do 
             if host "$sub.$domain" &> /dev/null; then
                 echo "$sub.$domain" >> domains.txt

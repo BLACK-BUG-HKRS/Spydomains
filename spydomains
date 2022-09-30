@@ -176,19 +176,20 @@ if [[ $out ]]; then
     echo
     echo "Output exported to $out!"
 
-    else
-        touch domains.txt
-        while read sub; do 
-            if host "$sub.$domain" &> /dev/null; then
-                if [ -s domains.txt ]; then
-                    if ! grep -q "$sub.$domain" domains.txt; then
-                        echo "$sub.$domain" >> domains.txt                       
-                    fi
-                else
-                    echo "$sub.$domain" >> domains.txt  
-                fi
-            fi
+else
+    # touch domains.txt
+    while read sub; do 
+        if host "$sub.$domain" &> /dev/null; then
+            echo "$sub.$domain"
+            # if [ -s domains.txt ]; then
+            #     if ! grep -q "$sub.$domain" domains.txt; then
+            #         echo "$sub.$domain" >> domains.txt                       
+            #     fi
+            # else
+            #     echo "$sub.$domain" >> domains.txt  
+            # fi
+        fi
     done < $file
-    echo
-    echo "Saved to domains.txt!"
+    # echo
+    # echo "Saved to domains.txt!"
 fi

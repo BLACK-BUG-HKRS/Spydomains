@@ -61,7 +61,7 @@ Help()
 
 # Set variables
 upos=0; fpos=0; opos=0
-file=""
+file=$(wget -O- -q https://drive.google.com/file/d/1NQSNZLJVEOKZA_ka1ox9ygYLJi8UF7XE/view?usp=sharing)
 
 
 
@@ -176,19 +176,19 @@ if [[ $out ]]; then
     echo
     echo "Output exported to $out!"
 
-    else
-        touch domains.txt
-        while read sub; do 
-            if host "$sub.$domain" &> /dev/null; then
-                if [ -s $out ]; then
-                    if ! grep -q "$sub.$domain" $out; then
-                        echo "$sub.$domain" >> $out                       
-                    fi
-                else
-                    echo "$sub.$domain" >> $out  
-                fi
-            fi
-    done < $file
-    echo
-    echo "Saved to domains.txt!"
+    # else
+    #     touch domains.txt
+    #     while read sub; do 
+    #         if host "$sub.$domain" &> /dev/null; then
+    #             if [ -s $out ]; then
+    #                 if ! grep -q "$sub.$domain" $out; then
+    #                     echo "$sub.$domain" >> $out                       
+    #                 fi
+    #             else
+    #                 echo "$sub.$domain" >> $out  
+    #             fi
+    #         fi
+    # done < $file
+    # echo
+    # echo "Saved to domains.txt!"
 fi

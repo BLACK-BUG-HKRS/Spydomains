@@ -1,5 +1,5 @@
 #!/bin/bash
-# copyright 2022 - Black Bug Group
+# copyright ©️ 2022 - Black Bug Group
 # Author: Edgar Nyandoro - Github: Major2000
 
 
@@ -10,6 +10,14 @@ cd "${PROJDIR}" || return
 # echo "Total arguments : $#"
 # echo "1st Argument = $1"
 # echo "2nd argument = $2"
+# echo "3 argument = $3"
+# echo "4 argument = $4"
+# echo "5 argument = $5"
+# echo "6 argument = $6"
+# echo "7 argument = $7"
+# echo "8 argument = $8"
+# echo "9 argument = $9"
+
 
 # Help function
 Help()
@@ -21,21 +29,25 @@ Help()
 
    echo
 
-   echo "Syntax: spydomains  -[options:|u|h|o]  [args]"
+   echo "Syntax: spydomains  -[options:|u, U|f, F|o, O|h, H]  [args]"
 
    echo
 
    echo "options:"
 
-   echo "           -u     Add the domain you want to brute force for subdomains."
+   echo "           -u, -U     Add the domain you want to brute force for subdomains."
 
-   echo "           -h     Print this Help."
+   echo "           -f, -F     Add a custom brute-force world list of domains"
 
-   echo "           -o     Write output to file"
+   echo "           -o, -O     Print to  external file"
+
+   echo "           -h, -H     Print this Help."
 
    echo
    
-   echo  "Example: spydomain -u example.com -f wordlist.txt -o domains.txt "
+   echo  "Example: spydomains -u example.com -f wordlist.txt -o domains.txt  - With word list"
+
+   echo  "Example: spydomains -u example.com - without word list"
   
    echo
 }
@@ -48,8 +60,8 @@ Help()
 ############################################################
 
 # Set variables
-domain="noexample.com"
-pos=0
+upos=0; fpos=0; opos=0
+file=""
 
 
 
@@ -57,32 +69,77 @@ pos=0
 if [[ -z "$1" || "$#" == 0 ]]; then
     echo
     echo "No option(s)!"
-    echo "Try -h or --help option for HELP!"
+    echo "Try -h option for HELP!"
     exit
 
 
     else
 
-        while getopts ":h:u:help:U:H:" option; do
+        while getopts "hHu:U:o:O:f:F:" option; do
             case $option in
-                h | H | -help)
+                h | H)
                     Help
                     exit
                     ;;
 
                 u | U)
                     for i in $@; do
-                        let "pos++"
+                        let "upos++"
                         # echo $i
-                        # echo $#
+                        # echo $upos
                         if [[ $i == "-u" || $i == "-U" ]]; then
-                            let "pos++"
-                            case $pos in
+                            let "upos++"
+                            case $upos in
                                 2) domain=$2;;
                                 3) domain=$3;;
                                 4) domain=$4;;
                                 5) domain=$5;;
                                 6) domain=$6;;
+                                7) domain=$7;;
+                                8) domain=$8;;
+                                9) domain=$9;;
+                            esac
+                        fi
+                    done
+                    ;;
+                
+                f | F)
+                    for i in $@; do
+                        # echo $i
+                        # echo $fpos
+                        let "fpos++"
+                        if [[ $i == "-f" || $i == "-F" ]]; then
+                            let "fpos++"
+                            case $fpos in
+                                2) file=$2;;
+                                3) file=$3;;
+                                4) file=$4;;
+                                5) file=$5;;
+                                6) file=$6;;
+                                7) file=$7;;
+                                8) file=$8;;
+                                9) file=$9;;
+                            esac
+                        fi
+                    done
+                    ;;
+
+                o | O)
+                    for i in $@; do
+                        # echo $i
+                        # echo $opos
+                        let "opos++"
+                        if [[ $i == "-o" || $i == "-O" ]]; then
+                            let "opos++"
+                            case $opos in
+                                2) out=$2;;
+                                3) out=$3;;
+                                4) out=$4;;
+                                5) out=$5;;
+                                6) out=$6;;
+                                7) out=$7;;
+                                8) out=$8;;
+                                9) out=$9;;
                             esac
                         fi
                     done
@@ -91,7 +148,7 @@ if [[ -z "$1" || "$#" == 0 ]]; then
                 *)
                     echo
                     echo "Invalid option(s)!"
-                    echo "Try -h or --help option for HELP!"
+                    echo "Try -h option for HELP!"
                     exit
                     ;;
             esac
@@ -101,12 +158,37 @@ fi
 
 
 
-
 ##### Reccon starts here!
-# echo $domain
+# read if output argument is availabe
+if [[ $out ]]; then
+    touch $out
+    while read sub; do 
+        if host "$sub.$domain" &> /dev/null; then
+            if [ -s $out ]; then
+                    if ! grep -q "$sub.$domain" $out; then
+                        echo "$sub.$domain" >> $out                       
+                    fi
+            else
+                echo "$sub.$domain" >> $out  
+            fi
+        fi
+    done < $file
+    echo
+    echo "Output exported to $out!"
 
-if host $domain &> /dev/null; then
-    echo " $domain resolves!"
     else
-        echo "$domain do not resolve!"
+        touch domains.txt
+        while read sub; do 
+            if host "$sub.$domain" &> /dev/null; then
+                if [ -s $out ]; then
+                    if ! grep -q "$sub.$domain" $out; then
+                        echo "$sub.$domain" >> $out                       
+                    fi
+                else
+                    echo "$sub.$domain" >> $out  
+                fi
+            fi
+    done < $file
+    echo
+    echo "Saved to domains.txt!"
 fi

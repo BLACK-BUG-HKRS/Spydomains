@@ -73,87 +73,87 @@ if [[ -z "$1" || "$#" == 0 ]]; then
     exit
 
 
-    else
+else
 
-        while getopts "hHu:U:o:O:f:F:" option; do
-            case $option in
-                h | H)
-                    Help
-                    exit
-                    ;;
+    while getopts "hHu:U:o:O:f:F:" option; do
+        case $option in
+            h | H)
+                Help
+                exit
+                ;;
 
-                u | U)
-                    for i in $@; do
+            u | U)
+                for i in $@; do
+                    let "upos++"
+                    # echo $i
+                    # echo $upos
+                    if [[ $i == "-u" || $i == "-U" ]]; then
                         let "upos++"
-                        # echo $i
-                        # echo $upos
-                        if [[ $i == "-u" || $i == "-U" ]]; then
-                            let "upos++"
-                            case $upos in
-                                2) domain=$2;;
-                                3) domain=$3;;
-                                4) domain=$4;;
-                                5) domain=$5;;
-                                6) domain=$6;;
-                                7) domain=$7;;
-                                8) domain=$8;;
-                                9) domain=$9;;
-                            esac
-                        fi
-                    done
-                    ;;
-                
-                f | F)
-                    for i in $@; do
-                        # echo $i
-                        # echo $fpos
+                        case $upos in
+                            2) domain=$2;;
+                            3) domain=$3;;
+                            4) domain=$4;;
+                            5) domain=$5;;
+                            6) domain=$6;;
+                            7) domain=$7;;
+                            8) domain=$8;;
+                            9) domain=$9;;
+                        esac
+                    fi
+                done
+                ;;
+            
+            f | F)
+                for i in $@; do
+                    # echo $i
+                    # echo $fpos
+                    let "fpos++"
+                    if [[ $i == "-f" || $i == "-F" ]]; then
                         let "fpos++"
-                        if [[ $i == "-f" || $i == "-F" ]]; then
-                            let "fpos++"
-                            case $fpos in
-                                2) file=$2;;
-                                3) file=$3;;
-                                4) file=$4;;
-                                5) file=$5;;
-                                6) file=$6;;
-                                7) file=$7;;
-                                8) file=$8;;
-                                9) file=$9;;
-                            esac
-                        fi
-                    done
-                    ;;
+                        case $fpos in
+                            2) file=$2;;
+                            3) file=$3;;
+                            4) file=$4;;
+                            5) file=$5;;
+                            6) file=$6;;
+                            7) file=$7;;
+                            8) file=$8;;
+                            9) file=$9;;
+                        esac
+                    fi
+                done
+                ;;
 
-                o | O)
-                    for i in $@; do
-                        # echo $i
-                        # echo $opos
+            o | O)
+                for i in $@; do
+                    # echo $i
+                    # echo $opos
+                    let "opos++"
+                    if [[ $i == "-o" || $i == "-O" ]]; then
                         let "opos++"
-                        if [[ $i == "-o" || $i == "-O" ]]; then
-                            let "opos++"
-                            case $opos in
-                                2) out=$2;;
-                                3) out=$3;;
-                                4) out=$4;;
-                                5) out=$5;;
-                                6) out=$6;;
-                                7) out=$7;;
-                                8) out=$8;;
-                                9) out=$9;;
-                            esac
-                        fi
-                    done
-                    ;;
+                        case $opos in
+                            2) out=$2;;
+                            3) out=$3;;
+                            4) out=$4;;
+                            5) out=$5;;
+                            6) out=$6;;
+                            7) out=$7;;
+                            8) out=$8;;
+                            9) out=$9;;
+                        esac
+                    fi
+                done
+                ;;
 
-                *)
-                    echo
-                    echo "Invalid option(s)!"
-                    echo "Try -h option for HELP!"
-                    exit
-                    ;;
-            esac
-        done
-        # shift $(($OPTIND -1))
+            *)
+                echo
+                echo "Invalid option(s)!"
+                echo "Try -h option for HELP!"
+                exit
+                ;;
+        esac
+    done
+    # shift $(($OPTIND -1))
 fi
 
 

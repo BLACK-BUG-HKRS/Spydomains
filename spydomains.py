@@ -53,3 +53,11 @@ if __name__ == "__main__":
     parser.add_argument("-o", "--output-file", help="Specify the output text file to write discovered subdomains", default="discovered-subdomains.txt")
     
     args = parser.parse_args()
+
+    domain = args.domain
+    wordlist = args.wordlist
+    num_threads = args.num_threads
+    output_file = args.output_file
+
+    main(domain=domain, n_threads=num_threads, subdomains=open(wordlist).read().splitlines())
+    q.join()

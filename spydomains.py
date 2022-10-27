@@ -61,3 +61,9 @@ if __name__ == "__main__":
 
     main(domain=domain, n_threads=num_threads, subdomains=open(wordlist).read().splitlines())
     q.join()
+
+
+     # save the file
+    with open(output_file, "w") as f:
+        for url in discovered_domains:
+            print(url, file=f)

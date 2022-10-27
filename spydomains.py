@@ -26,3 +26,17 @@ def scan_subdomains(domain):
 
         
         q.task_done()
+
+
+
+
+def main(domain, n_threads, subdomains):
+    global q
+
+    for subdomain in subdomains:
+        q.put(subdomain)
+
+    for t in range(n_threads):
+        worker = Thread(target=scan_subdomains, args=(domain,))
+        worker.daemon = True
+        worker.start()
